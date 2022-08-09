@@ -48,17 +48,32 @@ test('New blog created is successfully', async () => {
 });
 
 test('Likes default to zero if likes property missing', async () => {
-  const noLikesBlog = {
+  const blog = {
     ...helper.listWithOneBlog[0],
   };
-  delete noLikesBlog.likes;
-  
+  delete blog.likes;
+
   const response = await api
     .post('/api/blogs')
-    .send(noLikesBlog)
+    .send(blog)
     .set('Accept', 'application/json')
     .expect(201)
     .expect('Content-Type', /application\/json/);
 
   expect(response.body.likes).toBe(0);
+});
+
+test('Bad request is returned if title or url is missing', async () => {
+  const blog = {
+    ...helper.listWithOneBlog[0],
+  };
+  delete blog.title;
+  delete blog.url;
+
+  await api
+    .post('/api/blogs')
+    .send(blog)
+    .set('Accept', 'application/json')
+    .expect(400)
+    .expect('Content-Type', /application\/json/);
 });

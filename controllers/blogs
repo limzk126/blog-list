@@ -8,6 +8,11 @@ blogRouter.get('/', (request, response) => {
 });
 
 blogRouter.post('/', (request, response) => {
+  if ((request.body.title == undefined || request.body.url == undefined)) {
+    return response.status(400).json({
+      error: 'title and url cannot be missing!',
+    });
+  }
   if (request.body.likes === undefined) {
     request.body.likes = 0;
   }
