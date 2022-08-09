@@ -11,3 +11,16 @@ Content-Type: application/json
     "url": "http://desuka-travels.com.jp",
     "likes": 0
 }
+
+###
+
+DELETE http://localhost:3001/api/blogs/62f0f30a16b0cbdb707204c1
+
+###
+
+PUT http://localhost:3001/api/blogs/62f220e43e6edb6f9acc018a
+Content-Type: application/json
+
+{
+    "titles": "Travel to Kyoto!"
+}
