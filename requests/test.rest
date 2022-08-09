@@ -4,17 +4,20 @@ GET http://localhost:3001/api/blogs
 
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJ1a2EgY2hhbiIsImlkIjoiNjJmMjkyZDQ5MDk3NGU3ZjA1ZjFjZGNjIiwiaWF0IjoxNjYwMDY0NDc4fQ.xU2s0VARBj_wmlCqk7HbHXN7lt3F7HwAdNwV5knNxAo
 
 {
-    "title": "Travel to Japan!",
+    "title": "Travel to Vinland!",
     "author": "Hikari Inaba",
     "url": "http://desuka-travels.com.jp",
-    "likes": 0
+    "likes": 0,
+    "user": "62f26ffc687b50faadb6e602"
 }
 
 ###
 
-DELETE http://localhost:3001/api/blogs/62f0f30a16b0cbdb707204c1
+DELETE http://localhost:3001/api/blogs/62f29367df32d9fa0ff48c54
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJ1a2EgY2hhbiIsImlkIjoiNjJmMjkyZDQ5MDk3NGU3ZjA1ZjFjZGNjIiwiaWF0IjoxNjYwMDY0NDc4fQ.xU2s0VARBj_wmlCqk7HbHXN7lt3F7HwAdNwV5knNxAo
 
 ###
 
@@ -27,11 +30,11 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3001/api/users
+POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
     "username": "Ruka chan",
-    "name": "Ruka Inaba",
     "password": "password"
 }
+
