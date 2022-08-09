@@ -19,3 +19,8 @@ test('blogs returned have correct size', async () => {
   const response = await api.get('/api/blogs');
   expect(response.body).toHaveLength(helper.listWithMultipleBlogs.length);
 });
+
+test('All blogs have the id property', async () => {
+  const response = await api.get('/api/blogs');
+  response.body.forEach((blog) => expect(blog.id).toBeDefined());
+});
