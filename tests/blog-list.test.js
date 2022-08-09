@@ -15,7 +15,7 @@ beforeEach(async () => {
   await Promise.all(promiseArray);
 });
 
-test('blogs returned have correct size', async () => {
+test('Blogs returned have the correct size', async () => {
   const response = await api.get('/api/blogs');
   expect(response.body).toHaveLength(helper.listWithMultipleBlogs.length);
 });
@@ -23,4 +23,26 @@ test('blogs returned have correct size', async () => {
 test('All blogs have the id property', async () => {
   const response = await api.get('/api/blogs');
   response.body.forEach((blog) => expect(blog.id).toBeDefined());
+});
+
+test('New blog created is successfully', async () => {
+  const newBlog = {
+    title: 'Top 10 anime betrayals.',
+    author: 'Ruka Inaba',
+    url: 'http://kissanime.com.jp',
+    likes: 113,
+  };
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  const updatedBlogList = (await api.get('/api/blogs')).body;
+  expect(updatedBlogList).toHaveLength(helper.listWithMultipleBlogs.length + 1);
+
+  const titles = updatedBlogList.map((blog) => blog.title);
+  expect(titles).toContain('Top 10 anime betrayals.');
 });
