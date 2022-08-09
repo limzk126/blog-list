@@ -33,7 +33,7 @@ test('New blog created is successfully', async () => {
     likes: 113,
   };
 
-  const response = await api
+  await api
     .post('/api/blogs')
     .send(newBlog)
     .set('Accept', 'application/json')
@@ -45,4 +45,20 @@ test('New blog created is successfully', async () => {
 
   const titles = updatedBlogList.map((blog) => blog.title);
   expect(titles).toContain('Top 10 anime betrayals.');
+});
+
+test('Likes default to zero if likes property missing', async () => {
+  const noLikesBlog = {
+    ...helper.listWithOneBlog[0],
+  };
+  delete noLikesBlog.likes;
+  
+  const response = await api
+    .post('/api/blogs')
+    .send(noLikesBlog)
+    .set('Accept', 'application/json')
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  expect(response.body.likes).toBe(0);
 });
