@@ -24,3 +24,14 @@ Content-Type: application/json
 {
     "titles": "Travel to Kyoto!"
 }
+
+###
+
+POST http://localhost:3001/api/users
+Content-Type: application/json
+
+{
+    "username": "Ruka chan",
+    "name": "Ruka Inaba",
+    "password": "password"
+}
