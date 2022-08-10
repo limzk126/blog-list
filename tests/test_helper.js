@@ -48,7 +48,20 @@ const listWithMultipleBlogs = [
   },
 ];
 
+const userCreation = {
+  username: 'raiken',
+  name: 'ryujin',
+  password: 'password',
+};
+
+const user = {
+  username: 'raiken',
+  password: 'password',
+};
+
 module.exports = {
   listWithMultipleBlogs,
   listWithOneBlog,
+  userCreation,
+  user,
 };

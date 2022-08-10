@@ -4,16 +4,32 @@ const helper = require('./test_helper');
 const api = supertest(app);
 
 const Blog = require('../models/blog');
+const User = require('../models/user');
 const { response } = require('../app');
 
+let token;
 beforeEach(async () => {
   await Blog.deleteMany({});
+  await User.deleteMany({});
 
   const blogObjects = helper.listWithMultipleBlogs.map(
     (blog) => new Blog(blog)
   );
+
   const promiseArray = blogObjects.map((blog) => blog.save());
   await Promise.all(promiseArray);
+
+  await api
+    .post('/api/users')
+    .send(helper.userCreation)
+    .set('Accept', 'application/json');
+
+  token = (
+    await api
+      .post('/api/login')
+      .send(helper.user)
+      .set('Accept', 'application/json')
+  ).body.token;
 });
 
 test('Blogs returned have the correct size', async () => {
@@ -34,15 +50,16 @@ describe('Adding new blogs', () => {
       url: 'http://kissanime.com.jp',
       likes: 113,
     };
-
     await api
       .post('/api/blogs')
       .send(newBlog)
-      .set('Accept', 'application/json')
+      .set({ Accept: 'application/json', Authorization: `bearer ${token}` })
       .expect(201)
       .expect('Content-Type', /application\/json/);
 
-    const updatedBlogList = (await api.get('/api/blogs')).body;
+    const updatedBlogList = (
+      await api.get('/api/blogs').set('Authorization', `bearer ${token}`)
+    ).body;
     expect(updatedBlogList).toHaveLength(
       helper.listWithMultipleBlogs.length + 1
     );
@@ -60,7 +77,7 @@ describe('Adding new blogs', () => {
     const response = await api
       .post('/api/blogs')
       .send(blog)
-      .set('Accept', 'application/json')
+      .set({ Accept: 'application/json', Authorization: `bearer ${token}` })
       .expect(201)
       .expect('Content-Type', /application\/json/);
 
@@ -77,9 +94,13 @@ describe('Adding new blogs', () => {
     await api
       .post('/api/blogs')
       .send(blog)
-      .set('Accept', 'application/json')
+      .set({ Accept: 'application/json', Authorization: `bearer ${token}` })
       .expect(400)
       .expect('Content-Type', /application\/json/);
+  });
+
+  test('Status code 401 is returned if no token provided', async () => {
+    await api.get('/api/blogs').expect(401);
   });
 });
 

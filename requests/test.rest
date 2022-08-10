@@ -7,7 +7,7 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJ1a2EgY2hhbiIsImlkIjoiNjJmMjkyZDQ5MDk3NGU3ZjA1ZjFjZGNjIiwiaWF0IjoxNjYwMDY0NDc4fQ.xU2s0VARBj_wmlCqk7HbHXN7lt3F7HwAdNwV5knNxAo
 
 {
-    "title": "Travel to Vinland!",
+    "title": "Travel to Vinland Saga!",
     "author": "Hikari Inaba",
     "url": "http://desuka-travels.com.jp",
     "likes": 0,
@@ -16,7 +16,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJ1a
 
 ###
 
-DELETE http://localhost:3001/api/blogs/62f29367df32d9fa0ff48c54
+DELETE http://localhost:3001/api/blogs/62f33bf51f5f99942195f8fb
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJ1a2EgY2hhbiIsImlkIjoiNjJmMjkyZDQ5MDk3NGU3ZjA1ZjFjZGNjIiwiaWF0IjoxNjYwMDY0NDc4fQ.xU2s0VARBj_wmlCqk7HbHXN7lt3F7HwAdNwV5knNxAo
 
 ###
